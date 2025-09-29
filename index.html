@@ -457,44 +457,6 @@
           return sr + df + vg + hq;
         };
 
-        const handleShare = async () => {
-          const typeInfo = mbtiTypes[result];
-          const shareText = `나의 투자 유형은 "${typeInfo.alias}" (${result})입니다!\n\n${typeInfo.guide}`;
-
-          if (navigator.share) {
-            try {
-              await navigator.share({
-                title: "투자 성향 테스트 결과",
-                text: shareText,
-                url: window.location.href,
-              });
-            } catch (err) {
-              if (err.name !== "AbortError") {
-                copyToClipboard(shareText);
-              }
-            }
-          } else {
-            copyToClipboard(shareText);
-          }
-        };
-
-        const copyToClipboard = (text) => {
-          navigator.clipboard
-            .writeText(text)
-            .then(() => {
-              alert("결과가 클립보드에 복사되었습니다!");
-            })
-            .catch(() => {
-              alert("복사에 실패했습니다.");
-            });
-        };
-
-        const handleSaveImage = () => {
-          alert(
-            "결과 화면을 스크린샷으로 저장해주세요!\n\n• PC: Print Screen 또는 화면 캡처 도구\n• Mac: Cmd + Shift + 4\n• 모바일: 기기별 스크린샷 기능 사용"
-          );
-        };
-
         const handleAnswer = (value) => {
           const newAnswers = [...answers, value];
           setAnswers(newAnswers);
@@ -820,23 +782,9 @@
                 },
                 "나의 투자 유형"
               ),
-              React.createElement(
-                "button",
-                {
-                  onClick: handleShare,
-                  style: {
-                    background: "none",
-                    border: "none",
-                    color: "#FFFFFF",
-                    cursor: "pointer",
-                    padding: "8px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  },
-                },
-                React.createElement(Share2, { size: 24 })
-              )
+              React.createElement("div", {
+                style: { width: "24px", height: "24px" },
+              })
             ),
             React.createElement(
               "div",
@@ -932,22 +880,210 @@
                   {
                     style: {
                       width: "100%",
+                      padding: "20px",
+                      backgroundColor: "rgba(212, 221, 239, 0.1)",
+                      borderRadius: "15px",
                       marginBottom: "30px",
-                      borderRadius: "20px",
-                      overflow: "hidden",
-                      display: "flex",
-                      justifyContent: "center",
                     },
                   },
-                  React.createElement("img", {
-                    src: "./src/images/type-graph-bg.png",
-                    alt: "투자 유형 척도",
-                    style: {
-                      width: "70%",
-                      height: "auto",
-                      display: "block",
+                  React.createElement(
+                    "h4",
+                    {
+                      style: {
+                        textAlign: "center",
+                        color: "#6EE69E",
+                        fontSize: "16px",
+                        fontWeight: "bold",
+                        marginBottom: "20px",
+                        marginTop: "0",
+                      },
                     },
-                  })
+                    "유형 척도 그래프"
+                  ),
+                  React.createElement(
+                    "div",
+                    { style: { marginBottom: "15px" } },
+                    React.createElement(
+                      "div",
+                      {
+                        style: {
+                          display: "flex",
+                          justifyContent: "space-between",
+                          marginBottom: "5px",
+                        },
+                      },
+                      React.createElement(
+                        "span",
+                        { style: { fontSize: "14px", color: "#6EE69E" } },
+                        "S"
+                      ),
+                      React.createElement(
+                        "span",
+                        { style: { fontSize: "14px", color: "#F074BA" } },
+                        "R"
+                      )
+                    ),
+                    React.createElement(
+                      "div",
+                      {
+                        style: {
+                          height: "4px",
+                          backgroundColor: "rgba(255,255,255,0.2)",
+                          borderRadius: "2px",
+                          position: "relative",
+                        },
+                      },
+                      React.createElement("div", {
+                        style: {
+                          position: "absolute",
+                          left: result[0] === "S" ? "20%" : "80%",
+                          top: "-3px",
+                          width: "10px",
+                          height: "10px",
+                          backgroundColor: "#6EE69E",
+                          borderRadius: "50%",
+                        },
+                      })
+                    )
+                  ),
+                  React.createElement(
+                    "div",
+                    { style: { marginBottom: "15px" } },
+                    React.createElement(
+                      "div",
+                      {
+                        style: {
+                          display: "flex",
+                          justifyContent: "space-between",
+                          marginBottom: "5px",
+                        },
+                      },
+                      React.createElement(
+                        "span",
+                        { style: { fontSize: "14px", color: "#6EE69E" } },
+                        "D"
+                      ),
+                      React.createElement(
+                        "span",
+                        { style: { fontSize: "14px", color: "#F074BA" } },
+                        "F"
+                      )
+                    ),
+                    React.createElement(
+                      "div",
+                      {
+                        style: {
+                          height: "4px",
+                          backgroundColor: "rgba(255,255,255,0.2)",
+                          borderRadius: "2px",
+                          position: "relative",
+                        },
+                      },
+                      React.createElement("div", {
+                        style: {
+                          position: "absolute",
+                          left: result[1] === "D" ? "20%" : "80%",
+                          top: "-3px",
+                          width: "10px",
+                          height: "10px",
+                          backgroundColor: "#6EE69E",
+                          borderRadius: "50%",
+                        },
+                      })
+                    )
+                  ),
+                  React.createElement(
+                    "div",
+                    { style: { marginBottom: "15px" } },
+                    React.createElement(
+                      "div",
+                      {
+                        style: {
+                          display: "flex",
+                          justifyContent: "space-between",
+                          marginBottom: "5px",
+                        },
+                      },
+                      React.createElement(
+                        "span",
+                        { style: { fontSize: "14px", color: "#6EE69E" } },
+                        "V"
+                      ),
+                      React.createElement(
+                        "span",
+                        { style: { fontSize: "14px", color: "#F074BA" } },
+                        "G"
+                      )
+                    ),
+                    React.createElement(
+                      "div",
+                      {
+                        style: {
+                          height: "4px",
+                          backgroundColor: "rgba(255,255,255,0.2)",
+                          borderRadius: "2px",
+                          position: "relative",
+                        },
+                      },
+                      React.createElement("div", {
+                        style: {
+                          position: "absolute",
+                          left: result[2] === "V" ? "20%" : "80%",
+                          top: "-3px",
+                          width: "10px",
+                          height: "10px",
+                          backgroundColor: "#6EE69E",
+                          borderRadius: "50%",
+                        },
+                      })
+                    )
+                  ),
+                  React.createElement(
+                    "div",
+                    {},
+                    React.createElement(
+                      "div",
+                      {
+                        style: {
+                          display: "flex",
+                          justifyContent: "space-between",
+                          marginBottom: "5px",
+                        },
+                      },
+                      React.createElement(
+                        "span",
+                        { style: { fontSize: "14px", color: "#6EE69E" } },
+                        "H"
+                      ),
+                      React.createElement(
+                        "span",
+                        { style: { fontSize: "14px", color: "#F074BA" } },
+                        "Q"
+                      )
+                    ),
+                    React.createElement(
+                      "div",
+                      {
+                        style: {
+                          height: "4px",
+                          backgroundColor: "rgba(255,255,255,0.2)",
+                          borderRadius: "2px",
+                          position: "relative",
+                        },
+                      },
+                      React.createElement("div", {
+                        style: {
+                          position: "absolute",
+                          left: result[3] === "H" ? "20%" : "80%",
+                          top: "-3px",
+                          width: "10px",
+                          height: "10px",
+                          backgroundColor: "#6EE69E",
+                          borderRadius: "50%",
+                        },
+                      })
+                    )
+                  )
                 ),
                 React.createElement(
                   "div",
@@ -1068,30 +1204,6 @@
               React.createElement(
                 "div",
                 { style: { marginTop: "30px", marginBottom: "50px" } },
-                React.createElement(
-                  "button",
-                  {
-                    onClick: handleSaveImage,
-                    style: {
-                      width: "100%",
-                      backgroundColor: "#6EE69E",
-                      color: "#003340",
-                      border: "none",
-                      borderRadius: "15px",
-                      padding: "15px",
-                      fontSize: "16px",
-                      fontWeight: "600",
-                      cursor: "pointer",
-                      transition: "all 0.3s",
-                      marginBottom: "10px",
-                    },
-                    onMouseEnter: (e) =>
-                      (e.target.style.transform = "translateY(-2px)"),
-                    onMouseLeave: (e) =>
-                      (e.target.style.transform = "translateY(0)"),
-                  },
-                  "📸 결과 저장하기"
-                ),
                 React.createElement(
                   "button",
                   {
